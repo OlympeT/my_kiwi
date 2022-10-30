@@ -13,6 +13,7 @@ montant_usd:number=0;
 montant:number=0
 usd_convert:number=0
 currency:number=1
+taux_change_variation:number=0
 currencyCode: string= "EUR"
 currencyCodeConvert: string= "USD"
 compter:number=0
@@ -20,7 +21,8 @@ event_number:number=0
 taux:number=0
 taux_reel:number = 0;
 taux_fixe:number=0;
-@Input() categoryId: string;
+
+disabled: boolean = false;
 historiques:Array<{taux_reel:number,taux_fixe:number,valeur_init:string,valeur_cal:string}>=[]
 date=new Date();
   myGroup: FormGroup ;
@@ -40,24 +42,17 @@ this.initFormGroup()
      
       this.generateRandom(Math.floor(Math.random() * 1000))
       
-      
-      // this.montant_usd=this.montant_eur*this.taux_change
 
-      // this.taux_reel=(this.taux_change*2)/100
-      
       this.taux_reel=this.taux_change
       this.taux_fixe= this.tauxChange(this.taux)
-      console.log('fixe',this.taux_fixe);
-     console.log('reel',this.taux_reel);
+     
    
         if((this.taux_fixe-this.taux_reel)>=0.02){
     
       
         this.myGroup.controls['taux_fixe'].disable()
-        // this.montant_usd=this.montant_eur*this.taux_fixe
-      //  this.taux_change=this.taux_fixe
+        this.disabled = true;
        
-        
          this.montant_usd=this.switchMontant(this.montant_eur,this.currency)
 
 
@@ -67,9 +62,10 @@ this.initFormGroup()
         
         this.myGroup.controls['taux_fixe'].enable()
         
-        
+        this.disabled = false;
         this.montant_usd=this.switchMontant(this.montant_eur,this.currency)
-      
+        
+        
         
       }
 if(this.montant_eur!=0){
@@ -100,36 +96,32 @@ if(this.montant_eur!=0){
   
 
    private generateRandom(randomChoice: number) {
-    // console.log(randomChoice);
+   
     
     if(randomChoice % 2==0){
-      // console.log('paire');
+     
       
       this.taux_change+=0.05
     }else if(randomChoice % 2!=0){
-      // console.log('impaire');
+  
       
       this.taux_change-=0.05
     }
     
-    //return this.taux_change;
+   
   }
 
  onChangeMontant(value:number,index:number){
-  console.log('name',index);
-  console.log('montant',value);
+  
   let new_currency:number=0
   
 this.switchMontant(value,index)
-console.log('valueee',this.switchMontant(value,index));
+
 
   
   new_currency=this.usd_convert
   localStorage.setItem("val",new_currency.toString())
-  console.log('value',new_currency);
-  
-  // console.log(this.event_number,this.compter);
-  console.log('compteur',this.compter);
+ 
   
 if(this.compter!=0){
   this.montant=0
@@ -158,26 +150,44 @@ this.compter+=1
   
  }
 private switchMontant(amount:number,index:number){
-  console.log(this.taux_fixe);
-  console.log(this.taux_reel);
-  
-  
+
   if(index==1){
-    
-    this.usd_convert=amount*  this.taux_change
-    this.currencyCode = "USD"  
-    this.currencyCodeConvert="EUR"
-    
+    if(this.disabled){
+      this.montant_usd=amount*  this.taux
+      this.currencyCode = "USD"  
+      this.currencyCodeConvert="EUR"
+
+    }
+   
+    else{
+      if(!this.disabled ){
+      
+        this.montant_usd=amount*  this.taux_change
+        this.currencyCode = "USD"  
+        this.currencyCodeConvert="EUR"
+      }
+      
+      
+    }
   
   
 }
-  else{
-    this.usd_convert=amount /this.taux_change
+  if(index==2){
+
+    if(this.disabled){
+      this.montant_usd=amount /this.taux
     this.currencyCode = "EUR"
     this.currencyCodeConvert="USD"
    
+    }
+    if(!this.disabled){
+      this.montant_usd=amount /this.taux_change
+    this.currencyCode = "EUR"
+    this.currencyCodeConvert="USD"
+   
+    }
   }
-return this.usd_convert
+return this.montant_usd
 }
 
 
