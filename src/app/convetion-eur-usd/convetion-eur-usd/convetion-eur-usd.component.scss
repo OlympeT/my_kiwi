@@ -1,0 +1,31 @@
+h1 {
+    font-weight: 900;
+    font-size: 1em;
+    text-transform: uppercase;
+    margin: 0px 0px 24px 24px;
+    padding-top: 24px;
+  }
+.wrapper{
+  margin: 0px 0px 24px 24px;
+
+}
+
+.text-center{
+  text-align: center !important;
+}
+
+.table-responsive{
+  width: 99%;
+  margin: auto;
+}
+.table-responsive th{
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid black
+}
+.table-responsive td{
+  
+  font-size: 16px;
+  border: 1px solid black
+}

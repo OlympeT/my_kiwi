@@ -1,0 +1,97 @@
+
+<div class="wrapper">
+    <h1> 
+        <span>Currency<br>Converter</span>
+       
+    </h1>
+   
+    
+    <main>
+        <div class="text-center">
+            <span>Taux de change : </span> <span style=" font-weight: 900;">{{taux_change.toFixed(3)}}</span> <span > le :</span>
+            <span style=" font-weight: 900;"> {{date| date :'short'}} </span>
+        </div>
+  <br>
+      <div class="row">
+
+
+
+
+
+
+
+        
+        <form  [formGroup]="myGroup"  class="form-inline">
+            <div class="row">
+                <div class="col-4 col-sm-4">
+                    <label >montant {{currencyCodeConvert}} : </label><br>
+                    <input formControlName="montantEur" autocomplete="off"  [(ngModel)]="montant_eur" > 
+                     
+                      <select formControlName="curency_value" (change)="onChangeMontant(montant_eur,currency)" [(ngModel)]="currency">
+                       
+                        <option *ngFor="let choice of switch_currency"  [value]="choice.value" >{{choice.name}}</option>
+                    </select>
+                </div>
+             
+                <div class="col-4 col-sm-4">
+                    <label for="name">Montant {{currencyCode}} : </label><br>
+                    <input formControlName="montantUSD" [(ngModel)]="usd_convert" [value]="montant_usd" >{{currencyCode}}
+                </div>
+    
+                <div class="col-4 col-sm-4">
+              <label for="name">Taux de Change Fixe: </label><br>
+              <input formControlName="taux_fixe" [(ngModel)]="taux"  (change)="tauxChange(taux)"  >
+                </div>
+            </div>
+           
+        </form>
+        </div>
+        <div class="row">
+            <h1><span class="text-center">Historique</span></h1>
+            <table class="table-responsive">
+                <tr>
+                   
+                        <th>Taux Réel</th>
+                        <th>Taux Fixe</th>
+                        <th>Valeur Initiale</th>
+                        <th>Valeur Calculée</th>
+               
+                   
+                </tr>
+                <tr *ngFor="let histo of historiques">
+                    <td >{{histo.taux_reel}}</td>
+                    <td >{{histo.taux_fixe}}</td>
+                    <td >{{histo.valeur_init}} </td>
+                    <td >{{histo.valeur_cal}}</td>
+                </tr>
+
+            </table>
+        </div>
+      <br>
+     <!-- <div class="row">
+        <input [(ngModel)]="montant" >
+<select (change)="onChangeMontant(montant,currency)" [(ngModel)]="currency">
+    <option [value]="0" >---</option>
+    <option *ngFor="let choice of switch_currency"  [value]="choice.value" >{{choice.name}}</option>
+</select>
+<input  [value]="usd_convert" disabled>{{currencyCode}}
+
+<br>
+
+<input [(ngModel)]="taux" (change)="tauxChange(taux)" [disabled]="disabled" >
+     </div> -->
+    </main>
+   
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
