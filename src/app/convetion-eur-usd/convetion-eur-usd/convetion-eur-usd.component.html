@@ -1,54 +1,67 @@
 
-<div class="wrapper">
-    <h1> 
-        <span>Currency<br>Converter</span>
-       
-    </h1>
-   
-    
-    <main>
+
+
+<span class="flag-icon flag-icon-us"></span>
+
+
+
+<div class="row container-fluid ">
+    <div class="container-fluid title">
+        <h1> 
+            <span id="currency_title">Currency<br>Converter</span>
+           
+        </h1>
         <div class="text-center">
-            <span>Taux de change : </span> <span style=" font-weight: 900;">{{taux_change.toFixed(3)}}</span> <span > le :</span>
-            <span style=" font-weight: 900;"> {{date| date :'short'}} </span>
+            <h2>
+                <span >Taux de change : </span> <span >{{taux_change.toFixed(3)}}</span> <span > le :</span>
+                <span > {{date| date :'short'}} </span>
+            </h2>
+           
         </div>
   <br>
-      <div class="row">
+    </div>
+   
+   
+    <main class="child">
+       
+  <div class="container-fluid main">
+    <div class="row  form">
 
 
-
-
-
-
-
-        
         <form  [formGroup]="myGroup"  class="form-inline">
-            <div class="row">
-                <div class="col-4 col-sm-4">
+            <div class="row ">
+                <div class="col-sm">
                     <label >montant {{currencyCodeConvert}} : </label><br>
-                    <input formControlName="montantEur" autocomplete="off"  [(ngModel)]="montant_eur" > 
-                     
-                      <select formControlName="curency_value" (change)="onChangeMontant(montant_eur,currency)" [(ngModel)]="currency">
-                       
-                        <option *ngFor="let choice of switch_currency"  [value]="choice.value" >{{choice.name}}</option>
-                    </select>
+                            <input formControlName="montantEur" autocomplete="off"  [(ngModel)]="montant_eur" (keypress)="keyPress($event)">
+                            <select formControlName="curency_value" (change)="onChangeMontant(montant_eur,currency)" [(ngModel)]="currency">
+                               
+                                <option *ngFor="let choice of switch_currency"  [value]="choice.value" >
+                                    {{choice.name}}</option>
+                            </select>
                 </div>
-             
-                <div class="col-4 col-sm-4">
+
+                <div class="col-sm">
                     <label for="name">Montant {{currencyCode}} : </label><br>
-                    <input formControlName="montantUSD" [(ngModel)]="usd_convert" [value]="montant_usd" >{{currencyCode}}
+                                <input formControlName="montantUSD" [(ngModel)]="usd_convert" [value]="montant_usd" >{{currencyCode}}
                 </div>
-    
-                <div class="col-4 col-sm-4">
-              <label for="name">Taux de Change Fixe: </label><br>
-              <input formControlName="taux_fixe" [(ngModel)]="taux"  (change)="tauxChange(taux)"  >
+                <div class="col-sm">
+                    <label for="name">Taux de Change Fixe: </label><br>
+                    <input formControlName="taux_fixe" [(ngModel)]="taux"  (change)="tauxChange(taux)" (keypress)="keyPress($event)" >
                 </div>
+
+               
+                
             </div>
            
         </form>
         </div>
+  </div>
+      
         <div class="row">
             <h1><span class="text-center">Historique</span></h1>
-            <table class="table-responsive">
+
+            
+            <table class="table-responsive" id="historique">
                 <tr>
                    
                         <th>Taux Réel</th>
@@ -68,18 +81,8 @@
             </table>
         </div>
       <br>
-     <!-- <div class="row">
-        <input [(ngModel)]="montant" >
-<select (change)="onChangeMontant(montant,currency)" [(ngModel)]="currency">
-    <option [value]="0" >---</option>
-    <option *ngFor="let choice of switch_currency"  [value]="choice.value" >{{choice.name}}</option>
-</select>
-<input  [value]="usd_convert" disabled>{{currencyCode}}
 
-<br>
-
-<input [(ngModel)]="taux" (change)="tauxChange(taux)" [disabled]="disabled" >
-     </div> -->
+ 
     </main>
    
   </div>

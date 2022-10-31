@@ -4,7 +4,8 @@ import { FormBuilder, FormControl,  FormGroup,  Validators } from '@angular/form
 @Component({
   selector: 'app-convetion-eur-usd',
   templateUrl: './convetion-eur-usd.component.html',
-  styleUrls: ['./convetion-eur-usd.component.scss']
+  styleUrls: ['./convetion-eur-usd.component.scss'],
+  
 })
 export class ConvetionEurUsdComponent implements OnInit {
 taux_change:number=1.1;
@@ -28,7 +29,7 @@ date=new Date();
   myGroup: FormGroup ;
 
 switch_currency=[
-  {'name':"EUR",'value':1},
+  {'name': "EUR",'value':1},
   {'name':"USD",'value':2}
 ]
   constructor(private fb:FormBuilder) { }
@@ -36,6 +37,7 @@ switch_currency=[
   ngOnInit(): void {
 
 this.initFormGroup()
+/*change random exchange rate every 3 seconds*/
     window.setInterval(()=>{
       this.taux_change=1.1
      
@@ -46,7 +48,7 @@ this.initFormGroup()
       this.taux_reel=this.taux_change
       this.taux_fixe= this.tauxChange(this.taux)
      
-   
+   /*test the exchange rate*/
         if((this.taux_fixe-this.taux_reel)>=0.02){
     
       
@@ -68,12 +70,14 @@ this.initFormGroup()
         
         
       }
+      /*save amount conversion in historiques table*/ 
 if(this.montant_eur!=0){
   this.historiques.push({
     taux_reel:this.taux_reel,taux_fixe:this.taux_fixe,valeur_init:this.montant_eur+ ' '+this.currencyCodeConvert,
     valeur_cal:this.montant_usd+ ' '+this.currencyCode
     
   })
+  /**remove the first ligne of table when length of table>5 */
    if(this.historiques.length>5){
 
         this.historiques.shift()
@@ -84,6 +88,7 @@ if(this.montant_eur!=0){
     },3000)
    
   }
+  /*initialize the form reactif form*/
   private initFormGroup(){
     this.myGroup=this.fb.group({
       montantEur: new FormControl('',Validators.pattern("[0.9]")),
@@ -94,7 +99,7 @@ if(this.montant_eur!=0){
      })
   }
   
-
+ /* test if the value is positive then addition to the exchange rate sinn subtraction*/
    private generateRandom(randomChoice: number) {
    
     
@@ -110,7 +115,7 @@ if(this.montant_eur!=0){
     
    
   }
-
+/**change value when index change */
  onChangeMontant(value:number,index:number){
   
   let new_currency:number=0
@@ -143,16 +148,18 @@ if(this.compter!=0){
 this.compter+=1
     
  }
-
+/*get fixed exchange rate*/
  tauxChange(value:number){
   value=this.taux
   return value
   
  }
+ /*calculate amount based on exchange rate and index(euror usd) */
 private switchMontant(amount:number,index:number){
 
   if(index==1){
     if(this.disabled){
+       /*calculation formula*/ 
       this.montant_usd=amount*  this.taux
       this.currencyCode = "USD"  
       this.currencyCodeConvert="EUR"
@@ -161,7 +168,7 @@ private switchMontant(amount:number,index:number){
    
     else{
       if(!this.disabled ){
-      
+      /*calculation formula*/ 
         this.montant_usd=amount*  this.taux_change
         this.currencyCode = "USD"  
         this.currencyCodeConvert="EUR"
@@ -189,6 +196,13 @@ private switchMontant(amount:number,index:number){
   }
 return this.montant_usd
 }
+/** pattern only number*/
+ keyPress(event: any) {
+    const pattern = /[0-9]/;
 
-
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 }
