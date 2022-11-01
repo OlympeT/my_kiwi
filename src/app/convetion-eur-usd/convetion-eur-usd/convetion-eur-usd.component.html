@@ -29,28 +29,49 @@
 
 
         <form  [formGroup]="myGroup"  class="form-inline">
+           
+
+
+
+
             <div class="row ">
-                <div class="col-sm">
-                    <label >montant {{currencyCodeConvert}} : </label><br>
-                            <input formControlName="montantEur" autocomplete="off"  [(ngModel)]="montant_eur" (keypress)="keyPress($event)">
-                            <select formControlName="curency_value" (change)="onChangeMontant(montant_eur,currency)" [(ngModel)]="currency">
+
+                
+
+              
+                <div class="col-sm ">
+                    
+                  
+                        <label>montant {{currencyCodeConvert}} : </label>
+                        <div class="input-group mb-3">
+                            <input formControlName="montantEur" autocomplete="off" class="form-control"  [(ngModel)]="montant_eur" (keypress)="keyPress($event)">
+                            
+                            <select  formControlName="curency_value" (change)="onChangeMontant(montant_eur,currency)" [(ngModel)]="currency"  >
                                
                                 <option *ngFor="let choice of switch_currency"  [value]="choice.value" >
-                                    {{choice.name}}</option>
+                                    {{choice.name}}
+                                    
+                                </option>
+                         
                             </select>
-                </div>
-
-                <div class="col-sm">
-                    <label for="name">Montant {{currencyCode}} : </label><br>
-                                <input formControlName="montantUSD" [(ngModel)]="usd_convert" [value]="montant_usd" >{{currencyCode}}
-                </div>
-                <div class="col-sm">
-                    <label for="name">Taux de Change Fixe: </label><br>
-                    <input formControlName="taux_fixe" [(ngModel)]="taux"  (change)="tauxChange(taux)" (keypress)="keyPress($event)" >
-                </div>
-
+                       
+                        </div>
                
-                
+                </div>
+                <div class="col-sm">
+                    <label for="name">Montant {{currencyCode}} : </label>
+                    <div class="input-group mb-3">
+                                <input formControlName="montantUSD" class="form-control" [(ngModel)]="usd_convert" [value]="montant_usd" >
+                                <span class="input-group-text" >{{currencyCode}}</span>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <label for="name">Taux de Change Fixe: </label>
+                <div class="input-group mb-3">
+        
+                  <input formControlName="taux_fixe" class="form-control" [(ngModel)]="taux"  (change)="tauxChange(taux)" (keypress)="keyPress($event)" >
+                </div>
+                </div>
             </div>
            
         </form>
