@@ -71,7 +71,9 @@ this.initFormGroup()
         
       }
       /*save amount conversion in historiques table*/ 
-if(this.montant_eur!=0){
+      
+if((this.montant_eur!=0 &&!this.myGroup.controls['montantEur'].errors)){
+  if(!this.myGroup.controls['taux_fixe'].errors ||this.myGroup.controls['taux_fixe'].value==0){
   this.historiques.push({
     taux_reel:this.taux_reel,taux_fixe:this.taux_fixe,valeur_init:this.montant_eur+ ' '+this.currencyCodeConvert,
     valeur_cal:this.montant_usd+ ' '+this.currencyCode
@@ -83,17 +85,18 @@ if(this.montant_eur!=0){
         this.historiques.shift()
       }
 }
-     
+}    
      
     },3000)
    
   }
   /*initialize the form reactif form*/
   private initFormGroup(){
+    
     this.myGroup=this.fb.group({
-      montantEur: new FormControl('',Validators.pattern("[0.9]")),
+      montantEur: new FormControl('',Validators.pattern(/^([0-9])+\.{1}([0-9])+$/)),
       montantUSD: new FormControl({ value: '', disabled: true }),
-      taux_fixe: new FormControl('',Validators.pattern("[0.9]")),
+      taux_fixe: new FormControl('',Validators.pattern(/^([0-9])+\.{1}([0-9])+$/)),
       curency_value:new FormControl('')
   
      })
@@ -150,15 +153,19 @@ this.compter+=1
  }
 /*get fixed exchange rate*/
  tauxChange(value:number){
+ if (this.montant_eur!=0 &&!this.myGroup.controls['taux_fixe'].errors){
   value=this.taux
+ }
+  
   return value
   
  }
  /*calculate amount based on exchange rate and index(euror usd) */
 private switchMontant(amount:number,index:number){
-
-  if(index==1){
+  
+  if(index==1 ){
     if(this.disabled){
+      
        /*calculation formula*/ 
       this.montant_usd=amount*  this.taux
       this.currencyCode = "USD"  
@@ -179,6 +186,7 @@ private switchMontant(amount:number,index:number){
   
   
 }
+
   if(index==2){
 
     if(this.disabled){
@@ -196,13 +204,5 @@ private switchMontant(amount:number,index:number){
   }
 return this.montant_usd
 }
-/** pattern only number*/
- keyPress(event: any) {
-    const pattern = /[0-9]/;
 
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
 }

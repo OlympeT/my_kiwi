@@ -38,7 +38,7 @@
                   
                         <label>montant {{currencyCodeConvert}} : </label>
                         <div class="input-group mb-3">
-                            <input formControlName="montantEur" autocomplete="off" class="form-control"  [(ngModel)]="montant_eur" (keypress)="keyPress($event)">
+                            <input formControlName="montantEur" autocomplete="off" class="form-control"  [(ngModel)]="montant_eur" >
                             
                             <select  formControlName="curency_value" (change)="onChangeMontant(montant_eur,currency)" [(ngModel)]="currency"  >
                                
@@ -50,6 +50,7 @@
                             </select>
                        
                         </div>
+                        <mat-error *ngIf="!myGroup.controls['montantEur'].valid">saisir un montant valide exp "0.1"</mat-error>
                
                 </div>
                 <div class="col-sm">
@@ -63,8 +64,9 @@
                     <label for="name">Taux de Change Fixe: </label>
                 <div class="input-group mb-3">
         
-                  <input formControlName="taux_fixe" class="form-control" [(ngModel)]="taux"  (change)="tauxChange(taux)" (keypress)="keyPress($event)" >
+                  <input formControlName="taux_fixe" class="form-control" [(ngModel)]="taux"  (change)="tauxChange(taux)"  >
                 </div>
+                <mat-error *ngIf="!myGroup.controls['taux_fixe'].valid" [hidden]="disabled">saisir un taux valide "0.1"</mat-error>
                 </div>
             </div>
            
