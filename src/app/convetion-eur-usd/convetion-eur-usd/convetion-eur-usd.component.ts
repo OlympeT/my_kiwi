@@ -94,9 +94,9 @@ if((this.montant_eur!=0 &&!this.myGroup.controls['montantEur'].errors)){
   private initFormGroup(){
     
     this.myGroup=this.fb.group({
-      montantEur: new FormControl('',Validators.pattern(/^([0-9])+\.{1}([0-9])+$/)),
+      montantEur: new FormControl('',Validators.pattern(/(^([0-9])+\.{1}([0-9])+$|(^[0-9]$)|(^([0-9]+$)))/)),
       montantUSD: new FormControl({ value: '', disabled: true }),
-      taux_fixe: new FormControl('',Validators.pattern(/^([0-9])+\.{1}([0-9])+$/)),
+      taux_fixe: new FormControl('',Validators.pattern(/(^([0-9])+\.{1}([0-9])+$|(^[0-9]$)|(^([0-9]+$)))/)),
       curency_value:new FormControl('')
   
      })

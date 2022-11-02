@@ -1,10 +1,11 @@
 
 <div class="row container-fluid ">
     <div class="container-fluid title">
-        <h1> 
-            <span id="currency_title">Currency<br>Converter</span>
+        <p class="h1"> 
+            <span >Currency Converter</span>
            
-        </h1>
+        </p>
+        <br>
         <div class="text-center">
             <h2>
                 <span >Taux de change : </span> <span >{{taux_change.toFixed(3)}}</span> <span > le :</span>
@@ -18,11 +19,11 @@
    
     <main class="child">
        
-  <div class="container-fluid main">
-    <div class="row  form">
+  <div class="container-fluid main ">
+    <div class="row   card">
+<br>
 
-
-        <form  [formGroup]="myGroup"  class="form-inline">
+        <form  [formGroup]="myGroup"  class="form-inline ">
            
 
 
@@ -50,7 +51,7 @@
                             </select>
                        
                         </div>
-                        <mat-error *ngIf="!myGroup.controls['montantEur'].valid">saisir un montant valide exp "0.1"</mat-error>
+                        <mat-error *ngIf="!myGroup.controls['montantEur'].valid">saisir un montant valide</mat-error>
                
                 </div>
                 <div class="col-sm">
@@ -66,36 +67,41 @@
         
                   <input formControlName="taux_fixe" class="form-control" [(ngModel)]="taux"  (change)="tauxChange(taux)"  >
                 </div>
-                <mat-error *ngIf="!myGroup.controls['taux_fixe'].valid" [hidden]="disabled">saisir un taux valide "0.1"</mat-error>
+                <mat-error *ngIf="!myGroup.controls['taux_fixe'].valid" [hidden]="disabled">saisir un taux valide </mat-error>
                 </div>
             </div>
            
         </form>
         </div>
   </div>
-      
-        <div class="row">
-            <h1 class="text-center"><span id="currency_title">Historique</span></h1>
+      <br><br>
+       
+            <div class="card">
+                <div class="row ">
+                <h2 class="text-center"><span id="currency_title">Historique</span></h2>
 
             
-            <table class="table-responsive" id="historique">
-                <tr>
+                <table class="table-responsive" id="historique">
+                    <tr>
+                       
+                            <th>Taux Réel</th>
+                            <th>Taux Fixe</th>
+                            <th>Valeur Initiale</th>
+                            <th>Valeur Calculée</th>
                    
-                        <th>Taux Réel</th>
-                        <th>Taux Fixe</th>
-                        <th>Valeur Initiale</th>
-                        <th>Valeur Calculée</th>
-               
-                   
-                </tr>
-                <tr *ngFor="let histo of historiques">
-                    <td >{{histo.taux_reel}}</td>
-                    <td >{{histo.taux_fixe}}</td>
-                    <td >{{histo.valeur_init}} </td>
-                    <td >{{histo.valeur_cal}}</td>
-                </tr>
-
-            </table>
+                       
+                    </tr>
+                    <tr *ngFor="let histo of historiques">
+                        <td >{{histo.taux_reel}}</td>
+                        <td >{{histo.taux_fixe}}</td>
+                        <td >{{histo.valeur_init}} </td>
+                        <td >{{histo.valeur_cal}}</td>
+                    </tr>
+    
+                </table>
+                
+            </div>
+           <br>
         </div>
       <br>
 
