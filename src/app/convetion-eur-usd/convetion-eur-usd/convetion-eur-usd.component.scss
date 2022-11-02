@@ -43,5 +43,8 @@ border: 1px solid #006a4e
 }
 
 .card{
-  background-color:whitesmoke;
+  border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(35 55 80 / 30%) 0px 6px 12px;
+    padding: 48px;
 }

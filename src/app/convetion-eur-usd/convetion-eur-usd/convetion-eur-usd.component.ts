@@ -40,24 +40,19 @@ this.initFormGroup()
 /*change random exchange rate every 3 seconds*/
     window.setInterval(()=>{
       this.taux_change=1.1
-     
-     
-      this.generateRandom(Math.floor(Math.random() * 1000))
       
+      this.generateRandom(Math.floor(Math.random() * 1000))  
 
       this.taux_reel=this.taux_change
       this.taux_fixe= this.tauxChange(this.taux)
      
    /*test the exchange rate*/
         if((this.taux_fixe-this.taux_reel)>=0.02){
-    
       
         this.myGroup.controls['taux_fixe'].disable()
         this.disabled = true;
        
          this.montant_usd=this.switchMontant(this.montant_eur,this.currency)
-
-
         
       } 
       else{
@@ -66,8 +61,6 @@ this.initFormGroup()
         
         this.disabled = false;
         this.montant_usd=this.switchMontant(this.montant_eur,this.currency)
-        
-        
         
       }
       /*save amount conversion in historiques table*/ 
@@ -105,17 +98,13 @@ if((this.montant_eur!=0 &&!this.myGroup.controls['montantEur'].errors)){
  /* test if the value is positive then addition to the exchange rate sinn subtraction*/
    private generateRandom(randomChoice: number) {
    
-    
     if(randomChoice % 2==0){
-     
       
       this.taux_change+=0.05
     }else if(randomChoice % 2!=0){
   
-      
       this.taux_change-=0.05
     }
-    
    
   }
 /**change value when index change */
@@ -124,13 +113,10 @@ if((this.montant_eur!=0 &&!this.myGroup.controls['montantEur'].errors)){
   let new_currency:number=0
   
 this.switchMontant(value,index)
-
-
-  
+ 
   new_currency=this.usd_convert
   localStorage.setItem("val",new_currency.toString())
- 
-  
+   
 if(this.compter!=0){
   this.montant=0
   this.usd_convert=0
@@ -144,8 +130,6 @@ if(this.compter!=0){
   if(newVal!=null){
     this.montant = parseFloat(newVal)
   }
-
-
  
 }
 this.compter+=1
@@ -180,7 +164,6 @@ private switchMontant(amount:number,index:number){
         this.currencyCode = "USD"  
         this.currencyCodeConvert="EUR"
       }
-      
       
     }
   
